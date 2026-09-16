@@ -1,0 +1,668 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "6ff4e8823923905ac8a40d0438dd1f6b",
+    "entities": [
+      {
+        "tableName": "personal",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idPersonal` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `apellido` TEXT NOT NULL, `rol` TEXT NOT NULL, `licenciaProfesional` TEXT, `activo` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idPersonal",
+            "columnName": "idPersonal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "apellido",
+            "columnName": "apellido",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rol",
+            "columnName": "rol",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "licenciaProfesional",
+            "columnName": "licenciaProfesional",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "activo",
+            "columnName": "activo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idPersonal"
+          ]
+        }
+      },
+      {
+        "tableName": "paciente",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idPaciente` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombre` TEXT NOT NULL, `apellido` TEXT NOT NULL, `fechaNacimiento` INTEGER NOT NULL, `sexo` TEXT NOT NULL, `dni` TEXT NOT NULL, `cama` TEXT NOT NULL, `estado` TEXT NOT NULL, `alergias` TEXT, `creadoEn` INTEGER NOT NULL, `actualizadoEn` INTEGER NOT NULL, `eliminadoEn` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "idPaciente",
+            "columnName": "idPaciente",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombre",
+            "columnName": "nombre",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "apellido",
+            "columnName": "apellido",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaNacimiento",
+            "columnName": "fechaNacimiento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sexo",
+            "columnName": "sexo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dni",
+            "columnName": "dni",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cama",
+            "columnName": "cama",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alergias",
+            "columnName": "alergias",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "creadoEn",
+            "columnName": "creadoEn",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "actualizadoEn",
+            "columnName": "actualizadoEn",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eliminadoEn",
+            "columnName": "eliminadoEn",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idPaciente"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_paciente_dni",
+            "unique": true,
+            "columnNames": [
+              "dni"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_paciente_dni` ON `${TABLE_NAME}` (`dni`)"
+          }
+        ]
+      },
+      {
+        "tableName": "historia_clinica",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idHistoria` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idPaciente` INTEGER NOT NULL, `fechaRegistro` INTEGER NOT NULL, `motivoConsulta` TEXT NOT NULL, `diagnostico` TEXT, `notas` TEXT, `creadoEn` INTEGER NOT NULL, `actualizadoEn` INTEGER NOT NULL, FOREIGN KEY(`idPaciente`) REFERENCES `paciente`(`idPaciente`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idHistoria",
+            "columnName": "idHistoria",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPaciente",
+            "columnName": "idPaciente",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaRegistro",
+            "columnName": "fechaRegistro",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "motivoConsulta",
+            "columnName": "motivoConsulta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diagnostico",
+            "columnName": "diagnostico",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "notas",
+            "columnName": "notas",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "creadoEn",
+            "columnName": "creadoEn",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "actualizadoEn",
+            "columnName": "actualizadoEn",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idHistoria"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_historia_clinica_idPaciente",
+            "unique": false,
+            "columnNames": [
+              "idPaciente"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_historia_clinica_idPaciente` ON `${TABLE_NAME}` (`idPaciente`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "paciente",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idPaciente"
+            ],
+            "referencedColumns": [
+              "idPaciente"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "farmaco",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idFarmaco` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nombreGenerico` TEXT NOT NULL, `denominacionComercial` TEXT, `formaFarmaceutica` TEXT NOT NULL, `concentracion` REAL NOT NULL, `unidadMedida` TEXT NOT NULL, `esControlado` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idFarmaco",
+            "columnName": "idFarmaco",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nombreGenerico",
+            "columnName": "nombreGenerico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "denominacionComercial",
+            "columnName": "denominacionComercial",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "formaFarmaceutica",
+            "columnName": "formaFarmaceutica",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "concentracion",
+            "columnName": "concentracion",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unidadMedida",
+            "columnName": "unidadMedida",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "esControlado",
+            "columnName": "esControlado",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idFarmaco"
+          ]
+        }
+      },
+      {
+        "tableName": "prescripcion",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idPrescripcion` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idPaciente` INTEGER NOT NULL, `idProfesionalResponsable` INTEGER NOT NULL, `fechaPrescripcion` INTEGER NOT NULL, `observaciones` TEXT, `activa` INTEGER NOT NULL, FOREIGN KEY(`idPaciente`) REFERENCES `paciente`(`idPaciente`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idProfesionalResponsable`) REFERENCES `personal`(`idPersonal`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "idPrescripcion",
+            "columnName": "idPrescripcion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPaciente",
+            "columnName": "idPaciente",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idProfesionalResponsable",
+            "columnName": "idProfesionalResponsable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fechaPrescripcion",
+            "columnName": "fechaPrescripcion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observaciones",
+            "columnName": "observaciones",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "activa",
+            "columnName": "activa",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idPrescripcion"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_prescripcion_idPaciente",
+            "unique": false,
+            "columnNames": [
+              "idPaciente"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_prescripcion_idPaciente` ON `${TABLE_NAME}` (`idPaciente`)"
+          },
+          {
+            "name": "index_prescripcion_idProfesionalResponsable",
+            "unique": false,
+            "columnNames": [
+              "idProfesionalResponsable"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_prescripcion_idProfesionalResponsable` ON `${TABLE_NAME}` (`idProfesionalResponsable`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "paciente",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idPaciente"
+            ],
+            "referencedColumns": [
+              "idPaciente"
+            ]
+          },
+          {
+            "table": "personal",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idProfesionalResponsable"
+            ],
+            "referencedColumns": [
+              "idPersonal"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "prescripcion_detalle",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idDetalle` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idPrescripcion` INTEGER NOT NULL, `idFarmaco` INTEGER NOT NULL, `dosis` REAL NOT NULL, `viaAdministracion` TEXT NOT NULL, `frecuenciaHoras` INTEGER NOT NULL, `duracionDias` INTEGER NOT NULL, `notas` TEXT, FOREIGN KEY(`idPrescripcion`) REFERENCES `prescripcion`(`idPrescripcion`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idFarmaco`) REFERENCES `farmaco`(`idFarmaco`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "idDetalle",
+            "columnName": "idDetalle",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPrescripcion",
+            "columnName": "idPrescripcion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idFarmaco",
+            "columnName": "idFarmaco",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dosis",
+            "columnName": "dosis",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viaAdministracion",
+            "columnName": "viaAdministracion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frecuenciaHoras",
+            "columnName": "frecuenciaHoras",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "duracionDias",
+            "columnName": "duracionDias",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notas",
+            "columnName": "notas",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idDetalle"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_prescripcion_detalle_idPrescripcion",
+            "unique": false,
+            "columnNames": [
+              "idPrescripcion"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_prescripcion_detalle_idPrescripcion` ON `${TABLE_NAME}` (`idPrescripcion`)"
+          },
+          {
+            "name": "index_prescripcion_detalle_idFarmaco",
+            "unique": false,
+            "columnNames": [
+              "idFarmaco"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_prescripcion_detalle_idFarmaco` ON `${TABLE_NAME}` (`idFarmaco`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "prescripcion",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idPrescripcion"
+            ],
+            "referencedColumns": [
+              "idPrescripcion"
+            ]
+          },
+          {
+            "table": "farmaco",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idFarmaco"
+            ],
+            "referencedColumns": [
+              "idFarmaco"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "dosis_registro",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idDosis` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idDetalle` INTEGER NOT NULL, `idPersonalAdministra` INTEGER, `timestamp` INTEGER NOT NULL, `dosisRealizada` REAL, `estado` TEXT NOT NULL, `observaciones` TEXT, FOREIGN KEY(`idDetalle`) REFERENCES `prescripcion_detalle`(`idDetalle`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idPersonalAdministra`) REFERENCES `personal`(`idPersonal`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "idDosis",
+            "columnName": "idDosis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idDetalle",
+            "columnName": "idDetalle",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPersonalAdministra",
+            "columnName": "idPersonalAdministra",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dosisRealizada",
+            "columnName": "dosisRealizada",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observaciones",
+            "columnName": "observaciones",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idDosis"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_dosis_registro_idDetalle",
+            "unique": false,
+            "columnNames": [
+              "idDetalle"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_dosis_registro_idDetalle` ON `${TABLE_NAME}` (`idDetalle`)"
+          },
+          {
+            "name": "index_dosis_registro_idPersonalAdministra",
+            "unique": false,
+            "columnNames": [
+              "idPersonalAdministra"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_dosis_registro_idPersonalAdministra` ON `${TABLE_NAME}` (`idPersonalAdministra`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "prescripcion_detalle",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idDetalle"
+            ],
+            "referencedColumns": [
+              "idDetalle"
+            ]
+          },
+          {
+            "table": "personal",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idPersonalAdministra"
+            ],
+            "referencedColumns": [
+              "idPersonal"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "alertas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAlerta` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idPaciente` INTEGER NOT NULL, `idDetalle` INTEGER, `tipoAlerta` TEXT NOT NULL, `horaRecurrenteMinutos` INTEGER NOT NULL, `activo` INTEGER NOT NULL, FOREIGN KEY(`idPaciente`) REFERENCES `paciente`(`idPaciente`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`idDetalle`) REFERENCES `prescripcion_detalle`(`idDetalle`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAlerta",
+            "columnName": "idAlerta",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPaciente",
+            "columnName": "idPaciente",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idDetalle",
+            "columnName": "idDetalle",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "tipoAlerta",
+            "columnName": "tipoAlerta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "horaRecurrenteMinutos",
+            "columnName": "horaRecurrenteMinutos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "activo",
+            "columnName": "activo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "idAlerta"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_alertas_idPaciente",
+            "unique": false,
+            "columnNames": [
+              "idPaciente"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_alertas_idPaciente` ON `${TABLE_NAME}` (`idPaciente`)"
+          },
+          {
+            "name": "index_alertas_idDetalle",
+            "unique": false,
+            "columnNames": [
+              "idDetalle"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_alertas_idDetalle` ON `${TABLE_NAME}` (`idDetalle`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "paciente",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idPaciente"
+            ],
+            "referencedColumns": [
+              "idPaciente"
+            ]
+          },
+          {
+            "table": "prescripcion_detalle",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idDetalle"
+            ],
+            "referencedColumns": [
+              "idDetalle"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6ff4e8823923905ac8a40d0438dd1f6b')"
+    ]
+  }
+}

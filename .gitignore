@@ -1,0 +1,22 @@
+# Local configuration file (Evita subir URLs y llaves de API a GitHub)
+/local.properties
+
+# Gradle & Build files
+.gradle/
+build/
+**/build/
+caches/
+
+# IDE / Android Studio specific files
+.idea/
+*.iml
+.DS_Store
+captures/
+
+# Keystore files (Firmas de la app)
+*.jks
+*.keystore
+
+# External Native Build & C++
+.externalNativeBuild
+.cxx/
